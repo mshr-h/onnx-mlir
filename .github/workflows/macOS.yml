@@ -50,7 +50,9 @@ jobs:
     - name: print disk usage
       run: |
         pwd
+        ls
         cd ..
+        ls
         du -hs onnx-mlir
         du -hs onnx-mlir/build
         du -hs llvm-project
