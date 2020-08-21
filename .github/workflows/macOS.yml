@@ -52,4 +52,6 @@ jobs:
         pwd
         cd ..
         du -hs onnx-mlir
+        du -hs onnx-mlir/build
         du -hs llvm-project
+        du -hs llvm-project/build
