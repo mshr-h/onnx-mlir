@@ -37,6 +37,7 @@ jobs:
         cmake --build . --target -- ${MAKEFLAGS}
         cmake --build . --target check-mlir
         cd ../..
+        du -hs llvm-project
     - name: build onnx-mlir
       run: |
         export LLVM_PROJ_SRC=$(pwd)/llvm-project/
