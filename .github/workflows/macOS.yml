@@ -27,10 +27,8 @@ jobs:
     - name: build onnx-mlir
       run: |
         pwd
-        cd $GITHUB_WORKSPACE/..
-        pwd
-        export LLVM_PROJ_SRC=$(pwd)/llvm-project/
-        export LLVM_PROJ_BUILD=$(pwd)/llvm-project/build
+        export LLVM_PROJ_SRC=$(pwd)/../llvm-project/
+        export LLVM_PROJ_BUILD=$(pwd)/../llvm-project/build
         mkdir onnx-mlir/build && cd onnx-mlir/build
         cmake -G Ninja ..
         cmake --build .
