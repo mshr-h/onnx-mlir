@@ -8,13 +8,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: test
-      run: pwd && ls && system_profiler SPSoftwareDataType
+    - uses: actions/checkout@v2
     - name: install compiling tools
       run: brew install ninja cmake protobuf pyenv
     - name: install python
       run: |
+        pwd
         pyenv install 3.7.0
         pyenv global 3.7.0
         pyenv rehash
@@ -37,8 +36,13 @@ jobs:
             -DLLVM_ENABLE_RTTI=ON
         cmake --build . --target -- ${MAKEFLAGS}
         cmake --build . --target check-mlir
+        cd ../..
     - name: build onnx-mlir
       run: |
-        cd ../../onnx-mlir
-        pwd
-        ls
+        export LLVM_PROJ_SRC=$(pwd)/llvm-project/
+        export LLVM_PROJ_BUILD=$(pwd)/llvm-project/build
+        mkdir onnx-mlir/build && cd onnx-mlir/build
+        cmake -G Ninja ..
+        cmake --build .
+        export LIT_OPTS=-v
+        cmake --build . --target check-onnx-lit
