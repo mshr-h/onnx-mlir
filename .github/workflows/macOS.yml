@@ -18,26 +18,25 @@ jobs:
         pyenv install 3.7.0
         pyenv global 3.7.0
         pyenv rehash
-    - name: checkout llvm/mlir
+    - name: build llvm/mlir
       run: |
         cd ..
         git clone https://github.com/llvm/llvm-project.git
         cd llvm-project
         git checkout 9c94908320549a1a2328c758d6bbb694466021e7
         cd ..
-    - name: build llvm/mlir
-      run: |
-          mkdir llvm-project/build
-          cd llvm-project/build
-          cmake -G Ninja ../llvm \
-              -DLLVM_ENABLE_PROJECTS=mlir \
-              -DLLVM_BUILD_EXAMPLES=ON \
-              -DLLVM_TARGETS_TO_BUILD="host" \
-              -DCMAKE_BUILD_TYPE=Release \
-              -DLLVM_ENABLE_ASSERTIONS=ON \
-              -DLLVM_ENABLE_RTTI=ON
-          cmake --build . --target -- ${MAKEFLAGS}
-          cmake --build . --target check-mlir
+        pwd
+        mkdir llvm-project/build
+        cd llvm-project/build
+        cmake -G Ninja ../llvm \
+            -DLLVM_ENABLE_PROJECTS=mlir \
+            -DLLVM_BUILD_EXAMPLES=ON \
+            -DLLVM_TARGETS_TO_BUILD="host" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DLLVM_ENABLE_ASSERTIONS=ON \
+            -DLLVM_ENABLE_RTTI=ON
+        cmake --build . --target -- ${MAKEFLAGS}
+        cmake --build . --target check-mlir
     - name: build onnx-mlir
       run: |
         cd ../../onnx-mlir
