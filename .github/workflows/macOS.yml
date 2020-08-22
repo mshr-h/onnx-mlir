@@ -17,19 +17,19 @@ jobs:
         pyenv install 3.7.0
     - name: print python versions
       run: |
-        pyenv global 3.7.0
+        pyenv shell 3.7.0
         pyenv rehash
         which python
         which python3
     - name: build MLIR
       run: |
+        which python
+        which python3
         cd $GITHUB_WORKSPACE/..
         sh $GITHUB_WORKSPACE/utils/clone-mlir.sh
         sh $GITHUB_WORKSPACE/utils/build-mlir.sh
     - name: build onnx-mlir
       run: |
-        pyenv global 3.7.0
-        pyenv rehash
         cd $GITHUB_WORKSPACE/..
         export LLVM_PROJ_SRC=$(pwd)/llvm-project/
         export LLVM_PROJ_BUILD=$(pwd)/llvm-project/build
