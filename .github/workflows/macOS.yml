@@ -13,12 +13,13 @@ jobs:
         submodules: recursive
     - name: install tools that is needed for compilation
       run: | 
-        brew install ninja cmake protobuf pyenv
+        brew install ninja protobuf pyenv
         pyenv install 3.7.0
-    - name: print python versions
-      run: |
         pyenv shell 3.7.0
         pyenv rehash
+        export PATH=$$HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH
+    - name: print python versions
+      run: |
         which python
         which python3
     - name: build MLIR
