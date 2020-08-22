@@ -12,12 +12,9 @@ jobs:
       with:
         submodules: recursive
     - name: install compiling tools
-      run: brew install ninja cmake protobuf pyenv
-    - name: install python
-      run: |
+      run: | 
+        brew install ninja cmake protobuf pyenv
         pyenv install 3.7.0
-        pyenv global 3.7.0
-        pyenv rehash
     - name: build llvm/mlir
       run: |
         cd $GITHUB_WORKSPACE/..
@@ -25,6 +22,8 @@ jobs:
         sh $GITHUB_WORKSPACE/utils/build-mlir.sh
     - name: build onnx-mlir
       run: |
+        pyenv global 3.7.0
+        pyenv rehash
         cd $GITHUB_WORKSPACE/..
         export LLVM_PROJ_SRC=$(pwd)/llvm-project/
         export LLVM_PROJ_BUILD=$(pwd)/llvm-project/build
