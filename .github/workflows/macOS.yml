@@ -22,13 +22,12 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/..
         sh $GITHUB_WORKSPACE/utils/clone-mlir.sh
-        pwd
         sh $GITHUB_WORKSPACE/utils/build-mlir.sh
     - name: build onnx-mlir
       run: |
-        pwd
-        export LLVM_PROJ_SRC=$(pwd)/../llvm-project/
-        export LLVM_PROJ_BUILD=$(pwd)/../llvm-project/build
+        cd $GITHUB_WORKSPACE/..
+        export LLVM_PROJ_SRC=$(pwd)/llvm-project/
+        export LLVM_PROJ_BUILD=$(pwd)/llvm-project/build
         mkdir onnx-mlir/build && cd onnx-mlir/build
         cmake -G Ninja ..
         cmake --build .
@@ -36,10 +35,7 @@ jobs:
         cmake --build . --target check-onnx-lit
     - name: print disk usage
       run: |
-        pwd
-        ls
-        cd ..
-        ls
+        cd $GITHUB_WORKSPACE/..
         du -hs onnx-mlir
         du -hs onnx-mlir/build
         du -hs llvm-project
