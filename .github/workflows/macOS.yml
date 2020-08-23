@@ -17,19 +17,22 @@ jobs:
     - name: install tools that are needed for compilation
       run: | 
         brew install ninja protobuf
+    - name: clone MLIR
+      run: |
+        cd $GITHUB_WORKSPACE/..
+        sh $GITHUB_WORKSPACE/utils/clone-mlir.sh
     - name: cache MLIR binaries
       id: cache-mlir
       uses: actions/cache@v2
       env:
-        cache-name: cache-mlir-binaries
+        cache-name: cache-mlir-build-directory
       with:
-        path: $GITHUB_WORKSPACE/../llvm-project
+        path: $GITHUB_WORKSPACE/../llvm-project/build
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('${{ github.workspace }}/../llvm-project/.git/HEAD') }}
     - name: build MLIR
       if: steps.cache-mlir.outputs.cache-hit != 'true'
       run: |
         cd $GITHUB_WORKSPACE/..
-        sh $GITHUB_WORKSPACE/utils/clone-mlir.sh
         sh $GITHUB_WORKSPACE/utils/build-mlir.sh
     - name: build onnx-mlir
       run: |
