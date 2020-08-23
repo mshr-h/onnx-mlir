@@ -1,12 +1,10 @@
-name: CI
+name: Build x86 onnx-mlir on macOS
 
 on: [push]
 
 jobs:
-  build:
-
+  build-x86-onnx-mlir-macOS:
     runs-on: macos-latest
-
     steps:
     - uses: actions/checkout@v2
       with:
@@ -21,7 +19,7 @@ jobs:
       run: |
         cd ~/work/onnx-mlir
         sh $GITHUB_WORKSPACE/utils/clone-mlir.sh
-    - name: cache MLIR binaries
+    - name: cache MLIR build directory
       id: cache-mlir
       uses: actions/cache@v2
       env:
