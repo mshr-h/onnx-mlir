@@ -37,18 +37,4 @@ jobs:
     - name: build onnx-mlir
       run: |
         cd ~/work/onnx-mlir
-        # sh $GITHUB_WORKSPACE/utils/install-onnx-mlir.sh
-        export LLVM_PROJ_SRC=$(pwd)/llvm-project/
-        export LLVM_PROJ_BUILD=$(pwd)/llvm-project/build
-        mkdir onnx-mlir/build && cd onnx-mlir/build
-        cmake -G Ninja ..
-        cmake --build .
-        export LIT_OPTS=-v
-        # cmake --build . --target check-onnx-lit
-    - name: print disk usage
-      run: |
-        cd ~/work/onnx-mlir
-        du -hs onnx-mlir
-        du -hs onnx-mlir/build
-        du -hs llvm-project
-        du -hs llvm-project/build
+        sh $GITHUB_WORKSPACE/utils/install-onnx-mlir.sh
