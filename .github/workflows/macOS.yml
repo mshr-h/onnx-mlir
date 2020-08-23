@@ -19,7 +19,7 @@ jobs:
         brew install ninja protobuf
     - name: clone MLIR
       run: |
-        cd $GITHUB_WORKSPACE/..
+        cd ~/onnx-mlir
         sh $GITHUB_WORKSPACE/utils/clone-mlir.sh
     - name: cache MLIR binaries
       id: cache-mlir
@@ -27,16 +27,16 @@ jobs:
       env:
         cache-name: cache-mlir-build-directory
       with:
-        path: $GITHUB_WORKSPACE/../llvm-project/build
+        path: ~/onnx-mlir/llvm-project/build
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('$GITHUB_WORKSPACE/utils/clone-mlir.sh') }}
     - name: build MLIR
       if: steps.cache-mlir.outputs.cache-hit != 'true'
       run: |
-        cd $GITHUB_WORKSPACE/..
+        cd ~/onnx-mlir
         sh $GITHUB_WORKSPACE/utils/build-mlir.sh
     - name: build onnx-mlir
       run: |
-        cd $GITHUB_WORKSPACE/..
+        cd ~/onnx-mlir
         # sh $GITHUB_WORKSPACE/utils/install-onnx-mlir.sh
         export LLVM_PROJ_SRC=$(pwd)/llvm-project/
         export LLVM_PROJ_BUILD=$(pwd)/llvm-project/build
@@ -47,7 +47,7 @@ jobs:
         # cmake --build . --target check-onnx-lit
     - name: print disk usage
       run: |
-        cd $GITHUB_WORKSPACE/..
+        cd ~/onnx-mlir
         du -hs onnx-mlir
         du -hs onnx-mlir/build
         du -hs llvm-project
