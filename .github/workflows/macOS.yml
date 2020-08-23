@@ -19,6 +19,7 @@ jobs:
         brew install ninja protobuf
     - name: clone MLIR
       run: |
+        pwd
         cd ~/onnx-mlir
         sh $GITHUB_WORKSPACE/utils/clone-mlir.sh
     - name: cache MLIR binaries
