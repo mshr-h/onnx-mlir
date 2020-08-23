@@ -43,7 +43,7 @@ jobs:
         mkdir onnx-mlir/build && cd onnx-mlir/build
         cmake -G Ninja ..
         cmake --build .
-        # export LIT_OPTS=-v
+        export LIT_OPTS=-v
         # cmake --build . --target check-onnx-lit
     - name: print disk usage
       run: |
