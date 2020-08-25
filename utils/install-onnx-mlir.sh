@@ -8,4 +8,4 @@ cmake --build .
 
 # Run FileCheck tests:
 export LIT_OPTS=-v
-#cmake --build . --target check-onnx-lit
+cmake --build . --target check-onnx-lit
